@@ -1,0 +1,41 @@
+name: gcp-tf
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**"
+      - ".github/workflows/gcp-tf.yaml"
+
+jobs:
+  terraform:
+    environment: gcp
+    runs-on: ubuntu-latest
+        
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/236393118841/locations/global/workloadIdentityPools/github-id-pool/providers/github-provider'
+          service_account: 'github-actions-sa@mgmt-465320.iam.gserviceaccount.com'
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
