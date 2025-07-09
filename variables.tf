@@ -36,3 +36,32 @@ variable "terraform_sa_email" {
   type        = string
 }
 
+variable "vpc_a_cidr" {
+  description = "CIDR for VPC A (external)"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "vpc_b_cidr" {
+  description = "CIDR for VPC B (internal)"
+  type        = string
+  default     = "10.1.0.0/16"
+}
+
+variable "proxy_only_cidr" {
+  description = "/24 CIDR for the proxy-only subnet"
+  type        = string
+  default     = "10.0.0.0/24"
+}
+
+variable "psc_consumer_cidr" {
+  description = "/28-/24 CIDR for the PSC consumer subnet"
+  type        = string
+  default     = "10.0.1.0/28"
+}
+
+variable "psc_endpoint_ip" {
+  description = "Single IP inside psc_consumer_cidr for the PSC endpoint"
+  type        = string
+  default     = "10.0.1.10"
+}
