@@ -13,7 +13,7 @@ resource "google_compute_subnetwork" "proxy_only" {
   role          = "ACTIVE"
 }
 
-resource "google_compute_subnetwork" "psc_endpoints" {
+resource "google_compute_subnetwork" "psc_consumer" {
   name          = "psc-endpoints"
   region        = var.region
   network       = google_compute_network.vpc_ext.id
