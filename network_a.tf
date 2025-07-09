@@ -24,15 +24,6 @@ resource "google_compute_subnetwork" "psc_consumer" {
   project       = google_project.project_a.project_id
 }
 
-resource "google_compute_global_address" "psc_consumer_ip" {
-  name         = "psc-endpoint-ip"
-  purpose      = "PRIVATE_SERVICE_CONNECT"
-  address_type = "INTERNAL"
-  address      = var.psc_endpoint_ip
-  network      = google_compute_network.vpc_ext.id
-  project = google_project.project_a.project_id
-}
-
 resource "google_compute_firewall" "allow_lb_to_psc" {
   name          = "fw-allow-lb-to-psc"
   network       = google_compute_network.vpc_ext.id
