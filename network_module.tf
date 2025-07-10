@@ -60,20 +60,6 @@ module "vpc_int" {
       subnet_ip             = var.gke_nodes_cidr
       subnet_region         = var.region
       subnet_private_access = true
-      secondary_ranges = {
-        subnet-01 = [
-          {
-            range_name    = var.gke_pods_range_name
-            ip_cidr_range = var.gke_pods_cidr
-          }
-        ]
-        subnet-02 = [
-          {
-            range_name    = var.gke_services_range_name
-            ip_cidr_range = var.gke_services_cidr
-          }
-        ]
-    }
     },
     {
       subnet_name           = "psc-nat"
@@ -84,4 +70,18 @@ module "vpc_int" {
       role                  = "ACTIVE"
     }
   ]
+    secondary_ranges = {
+      var.gke_nodes_range_name = [
+        {
+          range_name    = var.gke_pods_range_name
+          ip_cidr_range = var.gke_pods_cidr
+        }
+      ]
+      var.gke_nodes_range_name = [
+        {
+          range_name    = var.gke_services_range_name
+          ip_cidr_range = var.gke_services_cidr
+        }
+      ]
+  }
 } 
