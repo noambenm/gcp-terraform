@@ -70,18 +70,16 @@ module "vpc_int" {
       role                  = "ACTIVE"
     }
   ]
-    secondary_ranges = {
-      var.gke_nodes_range_name = [
-        {
-          range_name    = var.gke_pods_range_name
-          ip_cidr_range = var.gke_pods_cidr
-        }
-      ]
-      var.gke_nodes_range_name = [
-        {
-          range_name    = var.gke_services_range_name
-          ip_cidr_range = var.gke_services_cidr
-        }
-      ]
+  secondary_ranges = {
+    "${var.gke_nodes_range_name}" = [
+      {
+        range_name    = var.gke_pods_range_name
+        ip_cidr_range = var.gke_pods_cidr
+      },
+      {
+        range_name    = var.gke_services_range_name
+        ip_cidr_range = var.gke_services_cidr
+      }      
+    ]
   }
 } 
