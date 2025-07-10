@@ -15,8 +15,8 @@ module "gke" {
 
   network           = module.vpc_int.network_name
   subnetwork        = var.gke_nodes_range_name
-  ip_range_pods     = "gke-pods"
-  ip_range_services = "gke-services"
+  ip_range_pods     = var.gke_pods_range_name
+  ip_range_services = var.gke_services_range_name
   enable_private_nodes    = true
   enable_private_endpoint = true
   master_ipv4_cidr_block  = var.master_ipv4_cidr_block
