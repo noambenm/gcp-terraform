@@ -4,6 +4,16 @@ resource "google_compute_network" "vpc_int" {
   project                 = google_project.project_b.project_id
 }
 
+resource "google_compute_subnetwork" "psc_nat" {
+  name          = "psc-nat-${var.region}"
+  project       = google_project.project_b.project_id
+  region        = var.region
+  network       = google_compute_network.vpc_int.id
+  ip_cidr_range = var.psc_nat_cidr
+  purpose       = "PRIVATE_SERVICE_CONNECT"
+  role          = "ACTIVE"
+}
+
 resource "google_compute_subnetwork" "gke_nodes" {
   name          = "gke-nodes"
   region        = var.region

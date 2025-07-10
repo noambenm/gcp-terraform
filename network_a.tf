@@ -14,6 +14,16 @@ resource "google_compute_subnetwork" "proxy_only" {
   project       = google_project.project_a.project_id
 }
 
+resource "google_compute_subnetwork" "psc_consumer" {
+  name          = "psc-endpoints"
+  region        = var.region
+  network       = google_compute_network.vpc_ext.id
+  ip_cidr_range = var.psc_consumer_cidr
+  purpose       = "PRIVATE_SERVICE_CONNECT"
+  role          = "ACTIVE"
+  project       = google_project.project_a.project_id
+}
+
 resource "google_compute_firewall" "allow_lb_to_psc" {
   name          = "fw-allow-lb-to-psc"
   network       = google_compute_network.vpc_ext.id
