@@ -20,7 +20,7 @@ locals {
 module "project_a" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 18.0"
-  name            = "Project-a"
+  name            = "project-a"
   org_id          = var.org_id
   billing_account = var.billing_account_id
   activate_apis = local.enabled_apis
@@ -38,7 +38,7 @@ module "project_a" {
 module "project_b" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 18.0"
-  name            = "Project-b"
+  name            = "project-b"
   org_id          = var.org_id
   billing_account = var.billing_account_id
   activate_apis = local.enabled_apis
