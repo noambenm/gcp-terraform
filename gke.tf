@@ -44,15 +44,6 @@ resource "google_container_cluster" "gke_cluster" {
     channel = "REGULAR"
   }
 
-  # Maintenance window
-  maintenance_policy {
-    recurring_window {
-      start_time = "2024-01-01T00:00:00Z"
-      end_time   = "2024-01-01T04:00:00Z"
-      recurrence = "FREQ=WEEKLY;BYDAY=SA,SU"  # Weekends
-    }
-  }
-
   # Enable VPA
   vertical_pod_autoscaling {
     enabled = true
