@@ -20,8 +20,6 @@ resource "google_project_service" "project_a_services" {
   project            = google_project.project_a.project_id
   service            = each.key
   disable_on_destroy = false
-
-  depends_on = [google_project.project_a]
 }
 
 resource "google_project_service" "project_b_services" {
@@ -29,6 +27,4 @@ resource "google_project_service" "project_b_services" {
   project            = google_project.project_b.project_id
   service            = each.key
   disable_on_destroy = false
-
-  depends_on = [google_project.project_b]
 }
