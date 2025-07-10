@@ -4,10 +4,9 @@ module "gke" {
 
   project_id = module.project_b.project_id
   name       = "gke-cluster"
-
-  region   = var.region
-  zones    = ["${var.region}-a"]
-  regional = false
+  region     = var.region
+  zones      = ["${var.region}-a"]
+  regional   = false
 
   network           = module.vpc_int.network_name
   subnetwork        = module.vpc_int.subnets["${var.region}/gke-nodes"].name
@@ -32,17 +31,33 @@ module "gke" {
 
   node_pools = [
     {
-      name         = "primary-node-pool"
-      machine_type = var.machine_type
-      min_count    = var.min_node_count
-      max_count    = var.max_node_count
-      disk_size_gb = 100
-      disk_type    = "pd-standard"
-      auto_repair  = true
-      auto_upgrade = true
-      oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+      name                      = "primary-node-pool"
+      machine_type              = var.machine_type
+      min_count                 = var.min_node_count
+      max_count                 = var.max_node_count
+      local_ssd_count          = 0
+      spot                     = false
+      disk_size_gb             = 100
+      disk_type                = "pd-standard"
+      image_type               = "COS_CONTAINERD"
+      enable_gcfs              = false
+      enable_gvnic             = false
+      auto_repair              = true
+      auto_upgrade             = true
+      preemptible              = false
+      initial_node_count       = 1
     }
   ]
+
+  node_pools_oauth_scopes = {
+    all = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+    primary-node-pool = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
+  }
 
   node_pools_labels = {
     primary-node-pool = {
@@ -67,8 +82,6 @@ module "gke" {
 
   enable_shielded_nodes       = true
   enable_binary_authorization = true
-
-  identity_namespace = "enabled"
-
+  identity_namespace         = "enabled"
   enable_vertical_pod_autoscaling = true
 }
