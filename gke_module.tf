@@ -2,6 +2,10 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   version = "~> 37"
 
+  depends_on = [
+    module.project_b.google_project_service.project_services["container.googleapis.com"]
+  ]
+
   project_id = module.project_b.project_id
   name       = "gke-cluster"
   region     = var.region
