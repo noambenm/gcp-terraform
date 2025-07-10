@@ -60,7 +60,7 @@ module "vpc_int" {
       subnet_ip             = var.gke_nodes_cidr
       subnet_region         = var.region
       subnet_private_access = true
-      secondary_ip_range = [
+      secondary_ip_ranges = [
         {
           range_name    = var.gke_pods_range_name
           ip_cidr_range = var.gke_pods_cidr
