@@ -11,7 +11,7 @@ module "vpc_ext" {
       subnet_name           = "lb-proxy-only-${var.region}"
       subnet_ip             = var.proxy_only_cidr
       subnet_region         = var.region
-      subnet_private_access = true
+      subnet_private_access = false
       purpose               = "INTERNAL_HTTPS_LOAD_BALANCER"
       role                  = "ACTIVE"
     },
@@ -19,7 +19,7 @@ module "vpc_ext" {
       subnet_name           = "psc-endpoints"
       subnet_ip             = var.psc_consumer_cidr
       subnet_region         = var.region
-      subnet_private_access = true
+      subnet_private_access = false
       purpose               = "PRIVATE_SERVICE_CONNECT"
       role                  = "ACTIVE"
     }
@@ -56,17 +56,17 @@ module "vpc_int" {
 
   subnets = [
     {
-      subnet_name           = "gke-nodes"
+      subnet_name           = var.gke_nodes_range_name
       subnet_ip             = var.gke_nodes_cidr
       subnet_region         = var.region
       subnet_private_access = true
       secondary_ip_range = [
         {
-          range_name    = "gke-pods"
+          range_name    = var.gke_pods_range_name
           ip_cidr_range = var.gke_pods_cidr
         },
         {
-          range_name    = "gke-services"
+          range_name    = var.gke_services_range_name
           ip_cidr_range = var.gke_services_cidr
         }
       ]
@@ -75,7 +75,7 @@ module "vpc_int" {
       subnet_name           = "psc-nat"
       subnet_ip             = var.psc_nat_cidr
       subnet_region         = var.region
-      subnet_private_access = true
+      subnet_private_access = false
       purpose               = "PRIVATE_SERVICE_CONNECT"
       role                  = "ACTIVE"
     }

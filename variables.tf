@@ -42,10 +42,28 @@ variable "psc_consumer_cidr" {
   default     = "10.1.1.0/24"
 }
 
+variable "gke_nodes_range_name" {
+  description = "Name of the secondary subnet range used for GKE Nodes"
+  type        = string
+  default     = "gke-nodes"
+}
+
+variable "gke_pods_range_name" {
+  description = "Name of the secondary subnet range used for GKE Pods"
+  type        = string
+  default     = "gke-pods"
+
+}
 variable "gke_nodes_cidr" {
   description = "CIDR range for the GKE nodes subnet in VPC B"
   type        = string
   default     = "10.2.16.0/20"
+}
+
+variable "gke_services_range_name" {
+  description = "Name of the secondary subnet range used for GKE Services"
+  type        = string
+  default     = "gke-services"
 }
 
 variable "gke_pods_cidr" {
