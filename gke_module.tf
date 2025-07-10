@@ -30,7 +30,6 @@ module "gke" {
       disk_type       = "pd-standard"
       auto_repair     = true
       auto_upgrade    = true
-      service_account = google_service_account.gke_nodes.email
       oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
     }
   ]
