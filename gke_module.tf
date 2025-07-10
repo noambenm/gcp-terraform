@@ -3,7 +3,8 @@ module "gke" {
   version = "~> 37"
 
   depends_on = [
-    module.project_b.google_project_service.project_services["container.googleapis.com"]
+    module.project_b,
+    google_project_iam_member.project_module_owner_sa["project_b"]
   ]
 
   project_id = module.project_b.project_id
