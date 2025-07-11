@@ -99,7 +99,7 @@ module "cloud-nat" {
   version                            = "~> 5.0"
   project_id                         = module.project_b.project_id
   region                             = var.region
-  router                             = module.cloud-router.router
+  router                             = module.cloud-router.name
   name                               = "nat-config"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
