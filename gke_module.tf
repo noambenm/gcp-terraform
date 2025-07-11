@@ -4,7 +4,8 @@ module "gke" {
 
   depends_on = [
     module.project_b,
-    google_project_iam_member.project_module_owner_sa["project_b"]
+    google_project_iam_member.project_module_owner_sa["project_b"],
+    module.vpc_int
   ]
 
   project_id = module.project_b.project_id
@@ -12,6 +13,7 @@ module "gke" {
   region     = var.region
   zones      = ["${var.region}-a"]
   regional   = false
+  deletion_protection = false
 
   network           = module.vpc_int.network_name
   subnetwork        = var.gke_nodes_range_name
