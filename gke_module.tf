@@ -28,6 +28,13 @@ module "gke" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
+  master_authorized_networks = [
+    {
+      cidr_block   = "0.0.0.0/0"
+      display_name = "Allow from anywhere"
+    }
+  ]
+
   node_pools = [
     {
       name                      = "primary-node-pool"
