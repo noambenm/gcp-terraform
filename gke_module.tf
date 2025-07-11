@@ -20,13 +20,17 @@ module "gke" {
   ip_range_pods     = var.gke_pods_range_name
   ip_range_services = var.gke_services_range_name
   enable_private_nodes    = true
-  enable_private_endpoint = true
+  enable_private_endpoint = false
   master_ipv4_cidr_block  = var.master_ipv4_cidr_block
 
   master_authorized_networks = [
     {
       cidr_block   = var.gke_nodes_cidr
-      display_name = "Allow Project VPC"
+      display_name = "Allow Project B VPC"
+    },
+    {
+      cidr_block   = "35.235.240.0/20"
+      display_name = "Allow IAP"
     }
   ]
 
