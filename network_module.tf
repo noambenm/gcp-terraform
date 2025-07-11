@@ -99,7 +99,7 @@ module "cloud-nat" {
   version                            = "~> 5.0"
   project_id                         = module.project_b.project_id
   region                             = var.region
-  router                             = google_compute_router.router.name
+  router                             = module.cloud-router.router
   name                               = "nat-config"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
