@@ -113,3 +113,8 @@ variable "machine_type" {
   type        = string
   default     = "e2-standard-4"
 }
+
+variable "home_ip" {
+  description = "Home IP address"
+  type        = string
+}

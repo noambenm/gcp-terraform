@@ -29,8 +29,8 @@ module "gke" {
       display_name = "Allow Project B VPC"
     },
     {
-      cidr_block   = "35.235.240.0/20"
-      display_name = "Allow IAP"
+      cidr_block  = var.home_ip
+      display_name = "Allow home IP"
     }
   ]
 
