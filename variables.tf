@@ -12,16 +12,19 @@ variable "region" {
 variable "billing_account_id" {
   description = "Billing account ID in the form ######-######-######."
   type        = string
+  sensitive = true
 }
 
 variable "org_id" {
   description = "Numeric ID of the GCP organisation that will own the projects."
   type        = string
+  sensitive = true
 }
 
 variable "terraform_sa_email" {
   description = "Email of the central Terraform service account to be granted Owner on both projects."
   type        = string
+  sensitive = true
 }
 
 variable "vpc_a_cidr" {
@@ -117,4 +120,11 @@ variable "machine_type" {
 variable "home_ip" {
   description = "Home IP address"
   type        = string
+  sensitive  = true
+}
+
+variable "fluxcd_github_token" {
+  description = "GitHub token for Flux authentication"
+  type        = string
+  sensitive   = true
 }
