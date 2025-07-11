@@ -13,8 +13,8 @@ provider "flux" {
   git = {
     url = "https://github.com/noambenm/gcp-terraform.git"
     http = {
-        username = "git"
-        password = var.fluxcd_github_token
+      username = "git"
+      password = var.fluxcd_github_token
     }
   }
-}
+} 
