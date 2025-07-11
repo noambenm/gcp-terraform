@@ -1,6 +1,6 @@
 locals {
   roles = [
-    "roles/container.nodeServiceAccount",
+    "roles/container.defaultNodeServiceAccount",
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter",
     "roles/monitoring.viewer",
