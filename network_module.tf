@@ -83,3 +83,20 @@ module "vpc_int" {
     ]
   }
 } 
+
+resource "google_compute_router" "router" {
+  project = module.project_b.project_id
+  name    = "nat-router"
+  network = module.vpc_int.network_name
+  region  = var.region
+}
+
+module "cloud-nat" {
+  source                             = "terraform-google-modules/cloud-nat/google"
+  version                            = "~> 5.0"
+  project_id                         = module.project_b.project_id
+  region                             = var.region
+  router                             = google_compute_router.router.name
+  name                               = "nat-config"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
