@@ -25,12 +25,8 @@ module "gke" {
 
   master_authorized_networks = [
     {
-      cidr_block   = var.gke_nodes_cidr
-      display_name = "Allow Project B VPC"
-    },
-    {
-      cidr_block  = var.home_ip
-      display_name = "Allow home IP"
+      cidr_block   = "0.0.0/0"
+      display_name = "Allow from anywhere"
     }
   ]
 
