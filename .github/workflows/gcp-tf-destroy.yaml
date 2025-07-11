@@ -16,6 +16,7 @@ jobs:
       TF_VAR_terraform_sa_email: ${{ secrets.TERRAFORM_SA_EMAIL }}
       TF_VAR_billing_account_id: ${{ secrets.BILLING_ACCOUNT_ID }}
       TF_VAR_org_id:             ${{ secrets.ORG_ID }}
+      TF_VAR_home_ip:            ${{ secrets.HOME_IP }}
 
     steps:
       - uses: actions/checkout@v4
