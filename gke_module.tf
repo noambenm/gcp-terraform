@@ -22,14 +22,7 @@ module "gke" {
   enable_private_nodes    = true
   enable_private_endpoint = false
   master_ipv4_cidr_block  = var.master_ipv4_cidr_block
-
-  master_authorized_networks = [
-    {
-      cidr_block   = "0.0.0/0"
-      display_name = "Allow from anywhere"
-    }
-  ]
-
+  
   release_channel = "REGULAR"
 
   remove_default_node_pool = true
