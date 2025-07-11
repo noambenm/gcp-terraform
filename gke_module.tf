@@ -6,7 +6,6 @@ module "gke" {
     module.project_b,
     google_project_iam_member.project_module_owner_sa["project_b"],
     module.vpc_int,
-    google_project_iam_member.gke_nodes_role
   ]
 
   project_id = module.project_b.project_id
