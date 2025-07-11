@@ -34,6 +34,11 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account:            ${{ secrets.TERRAFORM_SA_EMAIL }}
 
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+
       - name: Terraform Init
         run: terraform init
 
