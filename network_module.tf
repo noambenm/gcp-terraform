@@ -92,14 +92,8 @@ module "cloud-router" {
   network = module.vpc_int.network_name
   project = module.project_b.project_id
   region = var.region
-}
-
-module "cloud-nat" {
-  source                             = "terraform-google-modules/cloud-nat/google"
-  version                            = "~> 5.0"
-  project_id                         = module.project_b.project_id
-  region                             = var.region
-  router                             = module.cloud-router.name
-  name                               = "nat-config"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+    nats = [{
+    name                               = "nat-gateway"
+    source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+  }]
 }
