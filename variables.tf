@@ -123,7 +123,7 @@ variable "home_ip" {
   sensitive  = true
 }
 
-variable "fluxcd_github_token" {
+variable "fluxcd_github_pat" {
   description = "GitHub token for Flux authentication"
   type        = string
   sensitive   = true
