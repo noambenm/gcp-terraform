@@ -1,3 +1,27 @@
+locals {
+  roles = [
+    "roles/container.nodeServiceAccount",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter",
+    "roles/monitoring.viewer",
+    "roles/storage.objectViewer",
+    "roles/storage.objectCreator",
+  ]
+}
+
+resource "google_service_account" "gke_nodes" {
+  project      = module.project_b.project_id
+  account_id   = "gke-node-sa"
+  display_name = "GKE node pool service account"
+}
+
+resource "google_project_iam_member" "gke_nodes_role" {
+  for_each = toset(local.roles)
+  project = module.project_b.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.gke_nodes.email}"
+}
+
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   version = "~> 37"
@@ -5,7 +29,8 @@ module "gke" {
   depends_on = [
     module.project_b,
     google_project_iam_member.project_module_owner_sa["project_b"],
-    module.vpc_int
+    module.vpc_int,
+    google_project_iam_member.gke_nodes_role
   ]
 
   project_id = module.project_b.project_id
@@ -22,6 +47,7 @@ module "gke" {
   enable_private_nodes    = true
   enable_private_endpoint = false
   master_ipv4_cidr_block  = var.master_ipv4_cidr_block
+  service_account = google_service_account.gke_nodes.email
 
   master_authorized_networks = [
     {
