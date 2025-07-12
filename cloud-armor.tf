@@ -15,8 +15,8 @@ locals {
 resource "google_compute_security_policy" "waf" {
   name        = "edge-waf"
   description = "Allow Cloudflare + home IPs, block everything else"
-
-  # ── Allow rule ───────────────────────────────────────────────
+  project     = module.project_a.project_id
+  
   rule {
     priority = 1000
     action   = "allow"
