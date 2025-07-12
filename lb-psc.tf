@@ -20,7 +20,7 @@ module "edge_lb" {
 
   # ── Back end (PSC) ─────────────────────────────────────────────────
   backends = {
-    psc = {
+    default = {
       protocol     = "HTTP"
       port         = 80
       security_policy = google_compute_security_policy.waf.id
