@@ -11,6 +11,7 @@ module "edge_lb" {
   project = module.project_a.project_id
   network = module.vpc_ext.network_self_link
 
+  load_balancing_scheme = "EXTERNAL_MANAGED"
   ssl                     = true
   managed_ssl_certificate_domains = ["dashy-gcp.mdch-lab.dev"]
   https_redirect          = true
