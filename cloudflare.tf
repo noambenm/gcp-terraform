@@ -3,6 +3,6 @@ resource "cloudflare_dns_record" "dashy_a" {
   name    = "dashy-gcp"
   type    = "A"
   content = module.edge_lb.external_ip
-  ttl     = 300
+  ttl     = 1
   proxied = true
 }
