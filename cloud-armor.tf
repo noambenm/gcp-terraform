@@ -34,8 +34,9 @@ resource "google_compute_security_policy" "waf" {
     action   = "deny(403)"
 
     match {
-      expr {
-        expression = "true"
+      versioned_expr = "SRC_IPS_V1"
+      config {
+        src_ip_ranges = ["*"]
       }
     }
   }
