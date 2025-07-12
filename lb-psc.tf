@@ -54,7 +54,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   psc_target_service    = data.external.ingress_sa_url.result.url
 
   network    = module.vpc_int.network_name
-  subnetwork = module.vpc_int.subnets_names[1].subnet_name
+  subnetwork = module.vpc_int.subnets_names[1].id
 }
 
 data "external" "ingress_sa_url" {
