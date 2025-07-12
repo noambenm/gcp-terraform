@@ -52,6 +52,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = "https://www.googleapis.com/compute/v1/projects/project-b-4d5b/regions/us-central1/serviceAttachments/k8s1-sa-ll5ci21v-ingress-nginx-nginx-ingress-sa-l67qv7nn"
+  network               = module.vpc_ext.network_self_link
 }
 
 # data "external" "ingress_sa_url" {
