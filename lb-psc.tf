@@ -53,8 +53,8 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = data.external.ingress_sa_url.result.url
 
-  network    = module.vpc_int.network_self_link
-  subnetwork = module.vpc_int.subnets_names[1]
+  network    = module.vpc_ext.network_self_link
+  subnetwork = module.vpc_ext.subnets_names[1]
 }
 
 data "external" "ingress_sa_url" {
