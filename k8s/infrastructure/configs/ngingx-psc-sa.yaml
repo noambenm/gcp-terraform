@@ -1,0 +1,13 @@
+apiVersion: networking.gke.io/v1
+kind: ServiceAttachment
+metadata:
+  name: nginx-ingress-sa
+  namespace: ingress-nginx
+spec:
+  connectionPreference: ACCEPT_AUTOMATIC
+  natSubnets:
+  - psc-nat
+  proxyProtocol: false
+  resourceRef:
+    kind: Service
+    name: ingress-nginx-controller-internal

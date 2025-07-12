@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1h
   dependsOn:
-    - name: infra-controllers
+    - name: infra-configs
   sourceRef:
     kind: GitRepository
     name: flux-system
