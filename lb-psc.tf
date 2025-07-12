@@ -51,16 +51,13 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   region                = var.region
   project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = data.external.ingress_sa_url.result.url
-
-  network    = module.vpc_ext.network_self_link
-  subnetwork = module.vpc_ext.subnets_names[1]
+  psc_target_service    = "https://www.googleapis.com/compute/v1/projects/project-b-4d5b/regions/us-central1/serviceAttachments/k8s1-sa-ll5ci21v-ingress-nginx-nginx-ingress-sa-l67qv7nn"
 }
 
-data "external" "ingress_sa_url" {
-  depends_on = [ flux_bootstrap_git.flux_bootstrap ]
-  program = ["bash", "-c", <<EOT
-echo "{\"url\": \"$(kubectl get serviceattachment nginx-ingress-sa -n ingress-nginx -o jsonpath='{.status.serviceAttachmentURL}')\"}"
-EOT
-  ]
-}
+# data "external" "ingress_sa_url" {
+#   depends_on = [ flux_bootstrap_git.flux_bootstrap ]
+#   program = ["bash", "-c", <<EOT
+# echo "{\"url\": \"$(kubectl get serviceattachment nginx-ingress-sa -n ingress-nginx -o jsonpath='{.status.serviceAttachmentURL}')\"}"
+# EOT
+#   ]
+# }
