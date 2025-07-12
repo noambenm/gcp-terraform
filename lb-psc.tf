@@ -14,7 +14,7 @@ module "edge_lb" {
 
   ssl                     = true
   managed_ssl_certificate_domains = ["dashy-gcp.mdch-lab.dev"]
-  https_redirect          = true
+  https_redirect          = false
   quic                    = true
   ssl_policy              = google_compute_ssl_policy.modern_tls.self_link
 
