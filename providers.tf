@@ -17,4 +17,8 @@ provider "flux" {
       password = var.fluxcd_github_pat
     }
   }
-} 
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}

@@ -8,6 +8,10 @@ terraform {
       source  = "fluxcd/flux"
       version = "1.6.4"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5"
+    }
   }
   backend "gcs" {
     bucket = "tfstate-mgmt-465320"

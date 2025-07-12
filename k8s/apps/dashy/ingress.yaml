@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashy-ingress
+  labels:
+    app.kubernetes.io/name: dashy-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dashy-gcp.mdch-lab.dev
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: dashy
+            port: 
+              number: 8080

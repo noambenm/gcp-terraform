@@ -27,7 +27,7 @@ module "edge_lb" {
       enable_cdn = false
 
       groups = [{
-        group                 = google_compute_region_network_endpoint_group.psc_neg.id
+        group                 = "projects/project-b-4d5b/regions/us-central1/serviceAttachments/k8s1-sa-ll5ci21v-ingress-nginx-nginx-ingress-sa-l67qv7nn"
         balancing_mode        = "RATE"
         max_rate_per_endpoint = 150
       }]
@@ -47,13 +47,13 @@ module "edge_lb" {
   }
 }
 
-resource "google_compute_region_network_endpoint_group" "psc_neg" {
-  name                  = "edge-psc-neg"
-  region                = var.region
-  project               = module.project_a.project_id
+# resource "google_compute_region_network_endpoint_group" "psc_neg" {
+#   name                  = "edge-psc-neg"
+#   region                = var.region
+#   project               = module.project_a.project_id
 
-  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = "projects/${module.project_b.project_id}/regions/${var.region}/serviceAttachments/nginx-ingress-sa"
-  network   = module.vpc_ext.network_self_link
-  subnetwork = module.vpc_ext.subnets["${var.region}/psc-endpoints"].self_link
-}
+#   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+#   psc_target_service    = "projects/${module.project_b.project_id}/regions/${var.region}/serviceAttachments/nginx-ingress-sa"
+#   network   = module.vpc_ext.network_self_link
+#   subnetwork = module.vpc_ext.subnets["${var.region}/psc-endpoints"].self_link
+# }

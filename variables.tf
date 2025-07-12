@@ -128,3 +128,9 @@ variable "fluxcd_github_pat" {
   type        = string
   sensitive   = true
 }
+
+variable "cloudflare_api_token" {
+  description = "API token for Cloudflare"
+  type        = string
+  sensitive   = true
+}
