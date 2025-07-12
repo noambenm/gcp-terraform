@@ -49,9 +49,12 @@ module "edge_lb" {
 resource "google_compute_region_network_endpoint_group" "psc_neg" {
   name                  = "psc-neg"
   region                = var.region
-  project               = module.project_b.project_id
+  project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = data.external.ingress_sa_url.result.url
+
+  network    = module.vpc_int.network_self_link
+  subnetwork = module.vpc_int.subnets[1]
 }
 
 data "external" "ingress_sa_url" {
