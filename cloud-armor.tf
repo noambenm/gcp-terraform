@@ -9,7 +9,7 @@ locals {
     "2400:cb00::/32", "2606:4700::/32", "2803:f800::/32"
   ]
 
-  allowed_ips = concat(local.cf_ipv4, local.cf_ipv6, var.home_ip)
+  allowed_ips = concat(local.cf_ipv4, local.cf_ipv6, [var.home_ip],)
 }
 
 resource "google_compute_security_policy" "waf" {
