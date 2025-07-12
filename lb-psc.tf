@@ -11,7 +11,6 @@ module "edge_lb" {
   project = module.project_a.project_id
   network = module.vpc_ext.network_self_link
 
-  load_balancing_scheme = "EXTERNAL_MANAGED"
   ssl                     = true
   managed_ssl_certificate_domains = ["dashy-gcp.mdch-lab.dev"]
   https_redirect          = true
@@ -21,15 +20,20 @@ module "edge_lb" {
   backends = {
     default = {
       description = "PSC NEG backend"
-      enable_cdn = false
       groups = [
         {
           group = google_compute_region_network_endpoint_group.psc_neg.id
         }
       ]
       security_policy = google_compute_security_policy.waf.id
+      enable_cdn = false
 
-      log_config = { enable = true, sample_rate = 1.0 }
+      iap_config = {
+        enable = false
+      }
+      log_config = {
+        enable = false
+      }
     }
   }
 }
