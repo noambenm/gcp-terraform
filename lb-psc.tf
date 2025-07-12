@@ -52,8 +52,6 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = module.project_b.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = data.external.ingress_sa_url.result.url
-
-  subnetwork = module.vpc_int.subnets_names[0]
 }
 
 data "external" "ingress_sa_url" {
