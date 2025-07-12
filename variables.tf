@@ -134,3 +134,9 @@ variable "cloudflare_api_token" {
   type        = string
   sensitive   = true
 }
+
+variable "zone_id" {
+  description = "Cloudflare mdch-lab zone ID"
+  type        = string
+  default     = "5f738d8a328d15cbfba51970464fd84e"
+}
