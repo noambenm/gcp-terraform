@@ -26,6 +26,17 @@ module "edge_lb" {
       security_policy = google_compute_security_policy.waf.id
       enable_cdn = false
 
+      health_check = {
+        request_path        = "/"
+        port                = 80
+        host                = null
+        logging             = false
+        check_interval_sec  = 5
+        timeout_sec         = 5
+        healthy_threshold   = 1
+        unhealthy_threshold = 3
+      }
+      
       groups = [{
         group                 = google_compute_region_network_endpoint_group.psc_neg.id
         balancing_mode        = "RATE"
