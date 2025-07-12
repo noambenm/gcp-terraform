@@ -16,9 +16,9 @@ module "edge_lb" {
   https_redirect          = true
   quic                    = true
   ssl_policy              = google_compute_ssl_policy.modern_tls.self_link
-  firewall_networks = [module.vpc_ext.network_self_link]
+  firewall_networks = [module.vpc_ext.network_name]
   firewall_projects = [module.project_a.project_id]
-  
+
   backends = {
     default = {
       protocol     = "HTTP"
