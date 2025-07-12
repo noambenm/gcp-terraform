@@ -7,17 +7,18 @@ resource "google_compute_ssl_policy" "modern_tls" {
 module "edge_lb" {
   source  = "terraform-google-modules/lb-http/google"
   version = "~> 12.2"
-
+  name    = "edge-lb"
   project = module.project_a.project_id
   network = module.vpc_ext.network_self_link
-  name    = "edge-lb"
 
   ssl                     = true
   managed_ssl_certificate_domains = ["dashy-gcp.mdch-lab.dev"]
   https_redirect          = true
   quic                    = true
   ssl_policy              = google_compute_ssl_policy.modern_tls.self_link
-
+  firewall_networks = [module.vpc_ext.network_self_link]
+  firewall_projects = [module.project_a.project_id]
+  
   backends = {
     default = {
       protocol     = "HTTP"
