@@ -11,14 +11,12 @@ module "edge_lb" {
   project = module.project_a.project_id
   name    = "edge-lb"
 
-  # ── Front end ──────────────────────────────────────────────────────
   ssl                     = true
-  managed_ssl_certificate_domains = ["mdch-lab.dev", "*.mdch-lab.dev"]
+  managed_ssl_certificate_domains = ["dashy-gcp.mdch-lab.dev"]
   https_redirect          = true
   quic                    = true
   ssl_policy              = google_compute_ssl_policy.modern_tls.self_link
 
-  # ── Back end (PSC) ─────────────────────────────────────────────────
   backends = {
     default = {
       protocol     = "HTTP"
@@ -27,12 +25,12 @@ module "edge_lb" {
       enable_cdn = false
 
       groups = [{
-        group                 = "projects/project-b-4d5b/regions/us-central1/serviceAttachments/k8s1-sa-ll5ci21v-ingress-nginx-nginx-ingress-sa-l67qv7nn"
+        group                 = google_compute_region_network_endpoint_group.psc_neg.id
         balancing_mode        = "RATE"
         max_rate_per_endpoint = 150
       }]
 
-      health_check = {            # inline HC object per module schema
+      health_check = {
         request_path       = "/healthz"
         port               = 80
         check_interval_sec = 10
@@ -47,13 +45,22 @@ module "edge_lb" {
   }
 }
 
-# resource "google_compute_region_network_endpoint_group" "psc_neg" {
-#   name                  = "edge-psc-neg"
-#   region                = var.region
-#   project               = module.project_a.project_id
 
-#   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-#   psc_target_service    = "projects/${module.project_b.project_id}/regions/${var.region}/serviceAttachments/nginx-ingress-sa"
-#   network   = module.vpc_ext.network_self_link
-#   subnetwork = module.vpc_ext.subnets["${var.region}/psc-endpoints"].self_link
-# }
+resource "google_compute_region_network_endpoint_group" "psc_neg" {
+  name                  = "psc-neg"
+  region                = var.region
+  project               = module.project_b.project_id
+  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+  psc_target_service    = data.external.ingress_sa_url.result.url
+
+  network    = module.vpc_int.network_name
+  subnetwork = module.vpc_int.subnets["psc-nat"].subnet_name
+}
+
+data "external" "ingress_sa_url" {
+  depends_on = [ flux_bootstrap_git.flux_bootstrap ]
+  program = ["bash", "-c", <<EOT
+echo "{\"url\": \"$(kubectl get serviceattachment nginx-ingress-sa -n ingress-nginx -o jsonpath='{.status.serviceAttachmentURL}')\"}"
+EOT
+  ]
+}
