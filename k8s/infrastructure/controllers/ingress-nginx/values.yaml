@@ -1,0 +1,6 @@
+controller:
+  service:
+    internal:
+      enabled: true
+      annotations:
+        networking.gke.io/load-balancer-type: "Internal"
