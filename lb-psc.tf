@@ -1,5 +1,6 @@
 resource "google_compute_ssl_policy" "modern_tls" {
   name            = "edge-modern-tls"
+  project = module.project_a.project_id
   profile         = "MODERN"
   min_tls_version = "TLS_1_2"
 }
