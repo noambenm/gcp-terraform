@@ -1,5 +1,7 @@
 controller:
   service:
+    external:
+      enabled: false
     internal:
       enabled: true
       annotations:
