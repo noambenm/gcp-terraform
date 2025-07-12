@@ -1,9 +1,3 @@
-data "google_compute_service_attachment" "ingress_sa" {
-  name    = "nginx-ingress-sa"
-  region  = var.region
-  project = module.project_b.project_id
-}
-
 resource "google_compute_ssl_policy" "modern_tls" {
   name            = "edge-modern-tls"
   profile         = "MODERN"
@@ -58,7 +52,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = module.project_a.project_id
 
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = google_compute_service_attachment.svc_attach.self_link
+  psc_target_service    = "projects/${module.project_b.project_id}/regions/${var.region}/serviceAttachments/nginx-ingress-sa"
   network   = module.vpc_ext.network_self_link
   subnetwork = module.vpc_ext.subnets["${var.region}/psc-endpoints"].self_link
 }
