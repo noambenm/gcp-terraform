@@ -20,6 +20,7 @@ module "edge_lb" {
   backends = {
     default = {
       description = "PSC NEG backend"
+      enable_cdn = false
       groups = [
         {
           group = google_compute_region_network_endpoint_group.psc_neg.id
