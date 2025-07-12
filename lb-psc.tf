@@ -9,6 +9,7 @@ module "edge_lb" {
   version = "~> 12.2"
 
   project = module.project_a.project_id
+  network = module.vpc_ext.network_self_link
   name    = "edge-lb"
 
   ssl                     = true
@@ -29,16 +30,6 @@ module "edge_lb" {
         balancing_mode        = "RATE"
         max_rate_per_endpoint = 150
       }]
-
-      health_check = {
-        request_path       = "/healthz"
-        port               = 80
-        check_interval_sec = 10
-        timeout_sec        = 5
-        healthy_threshold  = 2
-        unhealthy_threshold = 3
-        logging            = true
-      }
 
       log_config = { enable = true, sample_rate = 1.0 }
     }
