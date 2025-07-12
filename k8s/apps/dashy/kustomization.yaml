@@ -6,6 +6,7 @@ resources:
   - repository.yaml
   - namespace.yaml
   - httproute.yaml
+  - ingress.yaml
 secretGenerator:
   - name: dashy-conf
     files:
