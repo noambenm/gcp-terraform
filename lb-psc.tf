@@ -23,6 +23,7 @@ module "edge_lb" {
     default = {
       description = "PSC NEG backend"
       protocol    = "HTTP"
+      port_name   = "http"
       groups = [
         {
           group = google_compute_region_network_endpoint_group.psc_neg.id
