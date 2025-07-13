@@ -9,7 +9,7 @@ resource "google_compute_security_policy" "waf" {
 
     match {
       expr {
-        expression = "source.region_code == 'IL'"
+        expression = "origin.region_code == 'IL'"
       }
     }
   }
