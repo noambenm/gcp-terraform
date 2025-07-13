@@ -1,5 +1,6 @@
 controller:
   service:
+    enableHttps: false
     external:
       enabled: false
     internal:
