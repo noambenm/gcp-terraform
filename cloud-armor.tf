@@ -1,7 +1,14 @@
 resource "google_compute_security_policy" "waf" {
   name        = "edge-waf"
-  description = "Allow Cloudflare IPs, block everything else"
+  description = "Allow Israel, block everything else"
   project     = module.project_a.project_id
+
+  adaptive_protection_config {
+    layer_7_ddos_defense_config {
+      enable          = true
+      rule_visibility = "STANDARD"
+    }
+  }
 
   rule {
     priority = 1000
