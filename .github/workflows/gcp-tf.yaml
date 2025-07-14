@@ -10,6 +10,7 @@ on:
 
 jobs:
   terraform:
+    if: ${{ github.event.head_commit.author.name != 'Flux' }}
     environment: gcp
     runs-on: ubuntu-latest
         
