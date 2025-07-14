@@ -52,25 +52,3 @@ module "project_b" {
   auto_create_network = false
   random_project_id  = true
 }
-
-resource "google_project_iam_member" "project_module_owner_sa" {
-  for_each = {
-    project_a = module.project_a.project_id
-    project_b = module.project_b.project_id
-  }
-
-  project = each.value
-  role    = "roles/owner"
-  member  = "serviceAccount:${var.terraform_sa_email}"
-}
-
-resource "google_project_iam_member" "noam_owner" {
-  for_each = {
-    project_a = module.project_a.project_id
-    project_b = module.project_b.project_id
-  }
-
-  project = each.value
-  role    = "roles/owner"
-  member  = "user:noam@mdch-lab.dev"
-}

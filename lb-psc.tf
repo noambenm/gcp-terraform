@@ -64,3 +64,8 @@ data "kubernetes_resource" "ingress_sa" {
     namespace = "ingress-nginx"
   }
 }
+
+resource "time_sleep" "wait_for_sa_url" {
+  depends_on      = [flux_bootstrap_git.flux_bootstrap]
+  create_duration = "90s"
+}
