@@ -4,7 +4,6 @@ module "gke" {
 
   depends_on = [
     module.project_b,
-    google_project_iam_member.project_module_owner_sa["project_b"],
     module.vpc_int,
   ]
 
