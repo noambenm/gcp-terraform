@@ -74,7 +74,7 @@ data "kubernetes_resource" "ingress_sa" {
 
 locals {
   sa_url = (
-    data.kubernetes_manifest.ingress_sa.object["status"]["serviceAttachmentURL"]
+    data.kubernetes_resource.ingress_sa.object["status"]["serviceAttachmentURL"]
   )
 }
 
