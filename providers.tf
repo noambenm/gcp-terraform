@@ -2,7 +2,7 @@ provider "google" {
 }
 
 provider "kubernetes" {
-  host                   = module.gke.endpoint
+  host = "https://${module.gke.endpoint}"
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
