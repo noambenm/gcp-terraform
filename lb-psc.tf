@@ -42,7 +42,6 @@ module "edge_lb" {
   }
 }
 
-
 resource "google_compute_region_network_endpoint_group" "psc_neg" {
   name                  = "psc-neg"
   region                = var.region
@@ -56,10 +55,19 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   }
 }
 
-# data "external" "ingress_sa_url" {
-#   depends_on = [ flux_bootstrap_git.flux_bootstrap ]
-#   program = ["bash", "-c", <<EOT
-# echo "{\"url\": \"$(kubectl get serviceattachment nginx-ingress-sa -n ingress-nginx -o jsonpath='{.status.serviceAttachmentURL}')\"}"
-# EOT
-#   ]
-# }
+data "external" "ingress_sa_url" {
+  program = [
+    "bash", "-c",
+    "kubectl -n ingress-nginx get serviceattachment nginx-ingress-sa -o jsonpath='{.status.serviceAttachmentURL}' | jq -R --slurp --arg key url '{($key): .}'"
+  ]
+}
+
+data "kubernetes_resource" "ingress_sa" {
+  depends_on = [ flux_bootstrap_git.flux_bootstrap ]
+  api_version = "networking.gke.io/v1"
+  kind       = "ServiceAttachment"
+  metadata {
+    name      = "nginx-ingress-sa"
+    namespace = "ingress-nginx"
+  }
+}
