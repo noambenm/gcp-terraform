@@ -47,7 +47,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   region                = var.region
   project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = "projects/project-b-cb7d/regions/us-central1/serviceAttachments/k8s1-sa-qoac32bf-ingress-nginx-nginx-ingress-sa-qraihn8t"
+  psc_target_service    = "https://www.googleapis.com/compute/v1/projects/project-b-676b/regions/us-central1/serviceAttachments/k8s1-sa-ng09nznb-ingress-nginx-nginx-ingress-sa-lcc6aisy"
   network               = module.vpc_ext.network_self_link
   subnetwork            = module.vpc_ext.subnets_self_links[1]
   lifecycle {
@@ -70,4 +70,14 @@ data "kubernetes_resource" "ingress_sa" {
     name      = "nginx-ingress-sa"
     namespace = "ingress-nginx"
   }
+}
+
+locals {
+  sa_url = (
+    data.kubernetes_manifest.ingress_sa.object["status"]["serviceAttachmentURL"]
+  )
+}
+
+output "sa_url" {
+  value = local.sa_url
 }
