@@ -56,7 +56,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
 }
 
 data "kubernetes_resource" "ingress_sa" {
-  depends_on = [ flux_bootstrap_git.flux_bootstrap ]
+  depends_on = [ time_sleep.wait_for_sa_url ]
   api_version = "networking.gke.io/v1"
   kind       = "ServiceAttachment"
   metadata {
@@ -67,5 +67,5 @@ data "kubernetes_resource" "ingress_sa" {
 
 resource "time_sleep" "wait_for_sa_url" {
   depends_on      = [flux_bootstrap_git.flux_bootstrap]
-  create_duration = "320s"
+  create_duration = "180s"
 }
