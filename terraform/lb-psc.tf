@@ -42,17 +42,18 @@ module "edge_lb" {
   }
 }
 
+resource "random_id" "neg_suffix" {
+  byte_length = 2
+}
+
 resource "google_compute_region_network_endpoint_group" "psc_neg" {
-  name                  = "psc-neg"
+  name                  = "psc-neg-${random_id.neg_suffix.hex}"
   region                = var.region
   project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = data.kubernetes_resource.psc_sa.object["status"]["serviceAttachmentURL"]
   network               = module.vpc_ext.network_self_link
   subnetwork            = module.vpc_ext.subnets_self_links[1]
-  lifecycle {
-    create_before_destroy = false
-  }
 }
 
 data "kubernetes_resource" "psc_sa" {
