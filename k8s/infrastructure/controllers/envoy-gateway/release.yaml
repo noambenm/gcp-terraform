@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 1h
+  releaseName: envoy-gateway
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: gateway-helm
+      version: 1.4.x
+      sourceRef:
+        kind: HelmRepository
+        name: envoy-gateway
+  valuesFrom:
+    - kind: ConfigMap
+      name: envoy-gateway-values
