@@ -68,7 +68,16 @@ DevOps and IT projects are continuously evolving, and there's always room for en
 - Migrate to self-hosted GitHub runners within the internal VPC
 - Achieve complete network isolation while maintaining automation capabilities
 
-### 4. Enhanced Terraform Workflow
+### 4. End-to-End HTTPS Implementation
+**Goal**: Implement comprehensive HTTPS encryption throughout the entire request path.
+
+**Enhancement Plan**:
+- Enable Cloudflare proxy for initial SSL/TLS termination and security features
+- Establish HTTPS connection through PSC to the internal load balancer
+- Configure secure communication to the ingress/Gateway API
+- Ensure encrypted traffic flow from client to backend services
+
+### 5. Enhanced Terraform Workflow
 **Planned Features**:
 - Pull Request integration with `terraform init` and `terraform plan` commands
 - Automated failure notifications and reporting
