@@ -55,13 +55,13 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   }
 }
 
-data "kubernetes_resource" "ingress_sa" {
+data "kubernetes_resource" "psc_sa" {
   depends_on = [ time_sleep.wait_for_sa_url ]
   api_version = "networking.gke.io/v1"
   kind       = "ServiceAttachment"
   metadata {
-    name      = "nginx-ingress-sa"
-    namespace = "ingress-nginx"
+    name      = "envoy-gateway-psc-sa"
+    namespace = "envoy-gateway-system"
   }
 }
 

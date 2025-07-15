@@ -1,0 +1,13 @@
+apiVersion: networking.gke.io/v1
+kind: ServiceAttachment
+metadata:
+  name: envoy-gateway-psc-sa
+  namespace: envoy-gateway-system
+spec:
+  connectionPreference: ACCEPT_AUTOMATIC
+  natSubnets:
+  - psc-nat
+  proxyProtocol: false
+  resourceRef:
+    kind: Service
+    name: envoy-gateway-lb-service
