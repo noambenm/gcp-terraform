@@ -47,7 +47,7 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   region                = var.region
   project               = module.project_a.project_id
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = data.kubernetes_resource.ingress_sa.object["status"]["serviceAttachmentURL"]
+  psc_target_service    = data.kubernetes_resource.psc_sa.object["status"]["serviceAttachmentURL"]
   network               = module.vpc_ext.network_self_link
   subnetwork            = module.vpc_ext.subnets_self_links[1]
   lifecycle {
