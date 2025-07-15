@@ -31,6 +31,9 @@ Beyond the standard Google provider, this project leverages multiple providers t
 - **Cloudflare Provider**: Updates A records in Cloudflare with the external load balancer's IP address
 - **Kubernetes Provider**: Dynamically retrieves the ServiceAttachmentURL from CRDs created in the cluster using Flux
 
+### 4. Modern Traffic Management with Envoy Gateway
+- **Transition to Gateway API**: This project has migrated from traditional Ingress controllers to the more modern and powerful Kubernetes Gateway API, using Envoy Gateway as the implementation.
+
 ## Technical Challenges & Solutions
 
 ### Private Service Connect (PSC) External Load Balancer
