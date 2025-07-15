@@ -29,9 +29,9 @@ variable "proxy_only_cidr" {
 }
 
 variable "psc_consumer_cidr" {
-  description = "/24 CIDR for the PSC consumer subnet in VPC A"
+  description = "CIDR for the PSC consumer subnet in VPC A"
   type        = string
-  default     = "10.1.1.0/24"
+  default     = "10.1.1.0/28"
 }
 
 variable "gke_nodes_range_name" {
@@ -73,7 +73,7 @@ variable "gke_services_cidr" {
 variable "psc_nat_cidr" {
   description = "CIDR for PSC NAT subnet in Project B"
   type        = string
-  default     = "10.2.16.0/24"
+  default     = "10.2.16.0/29"
 }
 
 variable "master_ipv4_cidr_block" {
