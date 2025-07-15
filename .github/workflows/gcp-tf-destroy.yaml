@@ -40,7 +40,13 @@ jobs:
           install_components: 'gke-gcloud-auth-plugin'
 
       - name: Terraform Init
-        run: terraform init
+        working-directory: ./terraform
+        run: terraform init -input=false
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+      - name: Terraform Plan
+        working-directory: ./terraform
+        run: terraform plan -destroy -input=false -out=tfdestroy.plan
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve tfdestroy.plan
