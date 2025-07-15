@@ -5,10 +5,10 @@ metadata:
   namespace: dashy
 spec:
   parentRefs:
-    - name: mdch-lab-gateway
-      namespace: cilium
+    - name: envoy-gateway
+      namespace: envoy-gateway-system
   hostnames:
-    - "mdch-lab.dev"
+    - "dashy-gcp.mdch-lab.dev"
   rules:
     - backendRefs:
       - name: dashy
