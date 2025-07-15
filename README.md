@@ -4,14 +4,14 @@ Welcome to my GCP Terraform project! This project was developed as part of an as
 
 ## Project Overview
 
-This project deploys a home lab dashboard and front page using [Dashy](https://dashy.to/), an open-source application dashboard. The deployment architecture features a GKE cluster in a private project, connected through a Private Service Connect (PSC) connection from an external load balancer to a private load balancer.
+This project deploys my home lab dashboard and front page using [Dashy](https://dashy.to/), an open-source application dashboard. The deployment architecture features a GKE cluster in a private project, connected through a Private Service Connect (PSC) connection from an external load balancer to a private load balancer. you can find the application here at [dashy-gcp.mdch-lab.dev](https://dashy-gcp.mdch-lab.dev)
 
 ## Architecture
 
 The GCP Terraform project focuses on building relatively complex infrastructure on Google Cloud Platform using Terraform best practices and modern deployment patterns.
 
 ### High-Level Design (HLD)
-![alt text](gcp-terraform.drawio.png)
+![alt text](img/gcp-terraform.drawio.png)
 ## Key Features & Focus Points
 
 ### 1. Terraform Modules Usage
