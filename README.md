@@ -56,21 +56,16 @@ Beyond the standard Google provider, this project leverages multiple providers t
 
 DevOps and IT projects are continuously evolving, and there's always room for enhancement. Here are planned improvements to enhance security, resiliency, and performance:
 
-### 1. Service Account Security Enhancement
-**Current State**: Single main service account with `organizationAdmin` permissions across the entire organization.
+### 1. Full Lifecycle IaC Management with Terragrunt
+**Goal**: Implement Terragrunt to automate the entire infrastructure lifecycle, from initial setup to application deployment, ensuring a secure, modular, and maintainable codebase.
 
-**Improvement Plan**: 
-- Implement least-privilege principle with granular permissions
-- Explore alternative secure methods for project-level permission management
-- Maintain security while preserving automation capabilities
+**Improvement Plan**:
+- **Dedicated Management Project**: Use Terragrunt to create and manage a dedicated project for core infrastructure, including OIDC configuration for GitHub WIF and initial IAM bindings.
+- **DRY Configuration**: Keep the infrastructure code DRY (Don't Repeat Yourself) by defining common configurations once and reusing them across environments.
+- **Granular IAM Security**: Provision a unique, least-privilege service account for each Terraform module, managed by Terragrunt, to eliminate reliance on a single, over-privileged account.
+- **Dependency Orchestration**: Automate the deployment order and manage dependencies between different infrastructure components seamlessly.
 
-### 2. Management Project Automation
-**Goal**: Create a dedicated Terraform project for provisioning the management infrastructure, including:
-- Main service account provisioning
-- OIDC configuration for GitHub WIF
-- IAM role attachments and bindings
-
-### 3. Enhanced Cluster Security
+### 2. Enhanced Cluster Security
 **Current Limitation**: GKE control plane has public IP for GitHub runner connectivity.
 
 **Security Enhancement Plan**:
@@ -79,7 +74,7 @@ DevOps and IT projects are continuously evolving, and there's always room for en
 - Migrate to self-hosted GitHub runners within the internal VPC
 - Achieve complete network isolation while maintaining automation capabilities
 
-### 4. End-to-End HTTPS Implementation
+### 3. End-to-End HTTPS Implementation
 **Goal**: Implement comprehensive HTTPS encryption throughout the entire request path.
 
 **Enhancement Plan**:
@@ -88,7 +83,7 @@ DevOps and IT projects are continuously evolving, and there's always room for en
 - Configure secure communication to the ingress/Gateway API
 - Ensure encrypted traffic flow from client to backend services
 
-### 5. Enhanced Terraform Workflow
+### 4. Enhanced Terraform Workflow
 **Planned Features**:
 - Pull Request integration with `terraform init` and `terraform plan` commands
 - Automated failure notifications and reporting
