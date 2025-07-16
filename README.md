@@ -34,6 +34,14 @@ Beyond the standard Google provider, this project leverages multiple providers t
 ### 4. Modern Traffic Management with Envoy Gateway
 - **Transition to Gateway API**: This project has migrated from traditional Ingress controllers to the more modern and powerful Kubernetes Gateway API, using Envoy Gateway as the implementation.
 
+### 5. GitOps with FluxCD and CRD-Managed Resources
+- **FluxCD for GitOps**: Leverages FluxCD to enable GitOps, with all Kubernetes manifests version-controlled in this repository.
+- **CRD-Driven Infrastructure**: GCP resources that are directly related to the GKE cluster like ServiceAttachments and the internal Load Balancer are dynamically created and managed through Kubernetes CRDs and annotations, such as the Gateway service annotation and the ServiceAttachment CRD.
+
+### 6. Cloud Armor Security
+- **Advanced Security**: Utilizes Cloud Armor with Advanced DDoS Protection, restricting traffic to Israel only.
+- **Enforced at the Edge**: The policy is attached to the external load balancer's backends, securing the application at the edge.
+
 ## Technical Challenges & Solutions
 
 ### Private Service Connect (PSC) External Load Balancer
