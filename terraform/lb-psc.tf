@@ -44,6 +44,9 @@ module "edge_lb" {
 
 resource "random_id" "neg_suffix" {
   byte_length = 2
+  keepers = {
+    psc_target_service = data.kubernetes_resource.psc_sa.object["status"]["serviceAttachmentURL"]
+  }
 }
 
 resource "google_compute_region_network_endpoint_group" "psc_neg" {
