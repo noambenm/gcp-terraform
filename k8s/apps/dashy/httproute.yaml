@@ -8,8 +8,6 @@ spec:
     - name: envoy-gateway
       namespace: envoy-gateway-system
       sectionName: https-any
-  hostnames:
-    - "dashy-gcp.mdch-lab.dev"
   rules:
     - backendRefs:
       - name: dashy
