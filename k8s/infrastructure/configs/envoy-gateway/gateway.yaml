@@ -10,6 +10,8 @@ kind: Gateway
 metadata:
   name: envoy-gateway
   namespace: envoy-gateway-system
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
 spec:
   gatewayClassName: envoy-gateway
   infrastructure:
@@ -18,9 +20,15 @@ spec:
       kind: EnvoyProxy
       name: envoy-gateway
   listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "dashy-gcp.mdch-lab.dev"
       allowedRoutes:
         namespaces:
           from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          name: dashy-gcp-cert
