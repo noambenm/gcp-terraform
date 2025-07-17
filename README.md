@@ -78,10 +78,8 @@ DevOps and IT projects are continuously evolving, and there's always room for en
 **Goal**: Implement comprehensive HTTPS encryption throughout the entire request path.
 
 **Enhancement Plan**:
-- Enable Cloudflare proxy for initial SSL/TLS termination and security features
-- Establish HTTPS connection through PSC to the internal load balancer
-- Configure secure communication to the ingress/Gateway API
-- Ensure encrypted traffic flow from client to backend services
+- Use DNS01 challenge with Cloudflare and use a valid backend certificate with authenticated backends.
+- Allow TLS passthrough at the external load balancer to allow truly end-to-end encryption.
 
 ### 4. Enhanced Terraform Workflow
 **Planned Features**:
