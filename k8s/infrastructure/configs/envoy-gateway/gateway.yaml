@@ -32,3 +32,11 @@ spec:
         certificateRefs:
         - kind: Secret
           name: dashy-gcp-cert
+    - name: https-any
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          name: dashy-gcp-cert
