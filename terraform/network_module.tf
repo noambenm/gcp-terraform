@@ -86,7 +86,7 @@ module "vpc_int" {
 
 module "cloud-router" {
   source  = "terraform-google-modules/cloud-router/google"
-  version = "~> 7.1"
+  version = "~> 7.0"
   
   name = "nat-router"
   network = module.vpc_int.network_name

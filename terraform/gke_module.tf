@@ -1,6 +1,6 @@
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
-  version = "~> 37"
+  version = "~> 37.0"
 
   depends_on = [
     module.project_b,

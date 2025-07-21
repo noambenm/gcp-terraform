@@ -7,7 +7,7 @@ resource "google_compute_ssl_policy" "modern_tls" {
 
 module "edge_lb" {
   source  = "terraform-google-modules/lb-http/google//modules/serverless_negs"
-  version = "~> 12.2"
+  version = "~> 12.0"
   name    = "edge-lb"
   project = module.project_a.project_id
   network = module.vpc_ext.network_self_link
