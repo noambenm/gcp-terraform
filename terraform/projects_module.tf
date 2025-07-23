@@ -14,7 +14,6 @@ locals {
     "dns.googleapis.com"
   ]
   environment   = "prod"
-  org_prefix    = "mdch-lab.dev"
 }
 
 module "project_a" {

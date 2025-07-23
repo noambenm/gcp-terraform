@@ -4,14 +4,14 @@ module "vpc_ext" {
 
   project_id   = module.project_a.project_id
   network_name = "vpc-ext"
-  routing_mode = "GLOBAL"
+  routing_mode = "GLOBAL" # tells Google Cloud how far the dynamic BGP routes that Cloud Routers learn or advertise should spread inside that VPC, can be "GLOBAL" or "REGIONAL"
 
   subnets = [
     {
       subnet_name           = "lb-proxy-only-${var.region}"
       subnet_ip             = var.proxy_only_cidr
       subnet_region         = var.region
-      subnet_private_access = false
+      subnet_private_access = false # turn on Private Google Access which allows VMs in this subnet to access Google APIs and services without an external IP address
       purpose               = "INTERNAL_HTTPS_LOAD_BALANCER"
       role                  = "ACTIVE"
     },
@@ -24,26 +24,6 @@ module "vpc_ext" {
       role                  = "ACTIVE"
     }
   ]
-
-  firewall_rules = [{
-    name                    = "fw-allow-lb-to-psc"
-    description             = "Allow traffic from Load Balancer to PSC endpoints"
-    direction               = "INGRESS"
-    priority                = 1000
-    ranges                  = [var.proxy_only_cidr]
-    source_tags             = null
-    source_service_accounts = null
-    target_tags             = null
-    target_service_accounts = null
-    allow = [{
-      protocol = "tcp"
-      ports    = ["80", "443"]
-    }]
-    deny = []
-    log_config = {
-      metadata = "INCLUDE_ALL_METADATA"
-    }
-  }]
 }
 
 module "vpc_int" {
