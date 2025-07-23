@@ -71,5 +71,5 @@ data "kubernetes_resource" "psc_sa" {
 
 resource "time_sleep" "wait_for_sa_url" {
   depends_on      = [flux_bootstrap_git.flux_bootstrap]
-  create_duration = "180s"
+  create_duration = "240s"
 }
